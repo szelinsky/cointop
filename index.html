@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css"
+    />
+    <style>
+      .pl0 {
+        padding-left: 0 !important;
+      }
+      .pr0 {
+        padding-right: 0 !important;
+      }
+      /* div {
+        padding: 10px;
+        display: inline-block;
+      } */
+      svg + svg {
+        margin-left: 20px;
+      }
+      .sparkline {
+        fill: none;
+      }
+      .sparkline-green {
+        stroke: #48c774;
+      }
+			.sparkline-green-fill {
+  			fill: rgba(72, 199, 116, .3);
+			}
+			.sparkline-red {
+        stroke: #dc2b33;
+      }
+			.sparkline-red-fill {
+  			fill: rgba(220, 43, 51, .3);
+			}
+    </style>
+    <title>CoinTop</title>
+  </head>
+  <body>
+    <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item title is-4">
+          <i class="fas fa-coins"></i>
+          &nbsp;CoinTop
+        </a>
+      </div>
+    </nav>
+    <section id="content" class="section">
+      <div class="container">
+        <table class="table is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th colspan="2">Валюта</th>
+              <th>Последняя цена</th>
+              <th>Макс. цена (24ч)</th>
+              <th>Мин. цена (24ч)</th>
+							<th>Последнее изм.</th>
+							<th>Объем рынка</th>
+              <th>7 дней</th>
+              <th>Обновлено</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+    <section id="hero" class="section">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column is-half is-offset-one-quarter">
+            <img src="hero.jpg" alt="" />
+          </div>
+        </div>
+        <div class="buttons has-addons is-centered">
+          <button class="button is-link">Получить курсы валют</button>
+        </div>
+      </div>
+    </section>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script
+      defer
+      src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
+    ></script>
+    <script src="https://cdn.rawgit.com/fnando/sparkline/master/dist/sparkline.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
