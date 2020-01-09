@@ -3,18 +3,28 @@ const table = document.querySelector('table > tbody');
 const changeColor = document.querySelector('.change-color');
 const intro = document.getElementById('hero');
 const content = document.getElementById('content');
+const nextPageBtn = document.querySelector('.pagination-next');
+const prevPageBtn = document.querySelector('.pagination-previous');
+let currentPage = 1;
+console.log(currentPage);
 const apiUrl =
-	'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&page=1&sparkline=true';
+	'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&sparkline=true&page=';
 
 let graphArray; 
 	
 content.style.display = 'none';
 
-const getData = () => {
+const getData = _ => {
   return axios
     .get(apiUrl)
     .then(response => response.data)
-    .catch(error => console.log(error));
+    .catch(error => console.log(error)); // temporary library issues
+};
+const getDataFetch = _ => {
+	return fetch(apiUrl + currentPage) 
+		.then(response => response.json())
+		.then(data => data)
+		.catch(error => console.log(error));
 };
 const createItem = ({ 
 	market_cap_rank, name, image, market_cap, current_price, high_24h, low_24h, price_change_percentage_24h, sparkline_in_7d, last_updated }) => {
@@ -50,23 +60,47 @@ const createItem = ({
 };
 
 const createTable = array => {
-	
-	
 	const dataTable = array.map(item => createItem(item)).join(' ');
 	table.innerHTML = dataTable;
 	
-	function addGraph() {
-		document.querySelectorAll('.sparkline').forEach(svg => sparkline.sparkline(svg, [1,7,4,9,2,4,1,8]));
-		
+	const addGraph = _ => {
+		document.querySelectorAll('.sparkline').forEach(svg => sparkline.sparkline(svg, [1,7,4,9,2,4,1,8]));	
 	}
 	setTimeout(addGraph, 100);
 };
 
+checkCurrentPage = _ => {
+	if (currentPage === 1) {
+		prevPageBtn.style.display = 'none';
+	} else {
+		prevPageBtn.style.display = 'block';
+	}
+}
 
 const loadContent = () => {
-	getData().then(createTable);
+	
+	getDataFetch().then(createTable);
 	intro.style.display = 'none';
 	content.style.display = 'block';
-	console.log(graphArray);
+	checkCurrentPage();
+
+	//console.log(graphArray);
 };
+
+const loadNextPage = _ => {
+	currentPage++;
+	getDataFetch().then(createTable);
+	checkCurrentPage();
+}
+const loadPrevPage = _ => {
+	currentPage--;
+	getDataFetch().then(createTable);
+	checkCurrentPage();
+}
+
 button.addEventListener('click', loadContent);
+nextPageBtn.addEventListener('click', loadNextPage);
+prevPageBtn.addEventListener('click', loadPrevPage);
+
+
+
