@@ -5,14 +5,18 @@ const intro = document.getElementById('hero');
 const content = document.getElementById('content');
 const nextPageBtn = document.querySelector('.pagination-next');
 const prevPageBtn = document.querySelector('.pagination-previous');
+const searchInput = document.querySelector('input[data-action="search"]');
+console.log(searchInput);
+
 let currentPage = 1;
-console.log(currentPage);
+
 const apiUrl =
 	'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=10&sparkline=true&page=';
 
 let graphArray; 
 	
 content.style.display = 'none';
+searchInput.style.display = 'none';
 
 const getData = _ => {
   return axios
@@ -82,6 +86,7 @@ const loadContent = () => {
 	getDataFetch().then(createTable);
 	intro.style.display = 'none';
 	content.style.display = 'block';
+	searchInput.style.display = 'block';
 	checkCurrentPage();
 
 	//console.log(graphArray);

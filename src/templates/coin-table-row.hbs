@@ -1,0 +1,13 @@
+<tr>
+	<th>{{market_cap_rank}}</th>
+	<td class="pr0"><img src="{{image}}" alt="" width="25" height="25" /></td>
+	<td class="pl0">{{name}}</td>
+	<td>{{current_price}}</td>
+	<td>{{high_24h}}</td>
+	<td>{{low_24h}}</td>
+	<td class="{{changeColor price_change_percentage_24h}}">{{formatPercent price_change_percentage_24h}}%</td>
+	<td>{{formatNumSpaces market_cap}}</td>
+	
+	<td><svg class="sparkline {{changeGraphColor price_change_percentage_24h}}" width="100" height="30" stroke-width="1"></svg></td>
+	<td>{{formatDate last_updated}}</td>
+</tr>
