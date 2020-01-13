@@ -15,20 +15,24 @@ const searchInput = document.querySelector('input[data-action="search"]');
 
 let currentPage = 1;
 
-let graphArray; 
-	
 content.style.display = 'none';
 searchInput.style.display = 'none';
 
-
 const createTable = array => {
+	const sparklineArr = () => array.map(item => item.sparkline_in_7d.price);
+	let elementSparkline = sparklineArr() 
+	
 	const dataTable = array.map(item => coinTableTemplate(item)).join(' ');
 	table.innerHTML = dataTable;
-	
-	const addGraph = _ => {
-		document.querySelectorAll('.sparkline').forEach(svg => sparkline(svg, [1,7,4,9,2,4,1,8]));	
-	}
-	setTimeout(addGraph, 100);
+
+	const addGraph = () => {
+		for (let i = 0; i < 10; i++) {
+			sparkline(document.querySelectorAll('.sparkline')[i], elementSparkline[i]
+				.map(val => val - Math.min(...elementSparkline[i]))
+			);	
+		}
+	};
+	setTimeout(addGraph, 1000);
 };
 
 const checkCurrentPage = _ => {
@@ -39,7 +43,7 @@ const checkCurrentPage = _ => {
 	}
 }
 
-const loadContent = () => {
+const loadContent = _ => {
 	fetchCoins(currentPage).then(createTable);
 	intro.style.display = 'none';
 	content.style.display = 'block';
@@ -52,6 +56,7 @@ const loadNextPage = _ => {
 	fetchCoins(currentPage).then(createTable);
 	checkCurrentPage();
 }
+
 const loadPrevPage = _ => {
 	currentPage--;
 	fetchCoins(currentPage).then(createTable);
